@@ -5,9 +5,9 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  // const [complete, setComplete] = useState(false); 굳이 얘로 쓸 필요가 없다. 왜냐? complete은 re-rendering에 쓰이지 않고 있기 때문이다.
-  const complete = false  // 따라서 complete은 그냥 변수(상수)로 지정해줘도 문제가 없다. 나중에 setComplete 자체만드로 re-rendering이 될 때 state를 쓰면 된다.
-  const focusRef = useRef() // submit한 뒤 커서를 제목에 옮기기 위한 수단인데 잘 모르겠음. 참고사이트 https://eundol1113.tistory.com/595
+  // const [complete, setComplete] = useState(false); 굳이 얘로 쓸 필요가 없다. 왜냐? complete은 re-rendering에 쓰이지 않고 있기 때문이다. 130번째에서 필터 걸어서 가져가는 todo의 complete이랑 이 8번째 줄의 complete이랑은 다른 애임.
+  const complete = false; // 따라서 complete은 그냥 변수(상수)로 지정해줘도 문제가 없다. 나중에 setComplete 자체만드로 re-rendering이 될 때 state를 쓰면 된다.
+  const focusRef = useRef(); // submit한 뒤 커서를 제목에 옮기기 위한 수단인데 잘 모르겠음. 참고사이트 https://eundol1113.tistory.com/595
 
   // 제목 input창의 value를 title 훅에 넣기
   const titleChangeHandler = (event) => {
@@ -22,25 +22,25 @@ function App() {
   // id: todos의 요소개수+1 / title&content: 위 두 handler로 넣은 값 / complete : 기본값 false (useState(false))
   const clickAddButtonHandler = () => {
     if (title.trim() === "") {
-      alert('제목은 입력하셔요.(스페이스만 쳐도 안됨)')
+      alert("제목은 입력하셔요.(스페이스만 쳐도 안됨)");
     } else {
-    const newTodo = {
-      id: todos.length + 1,
-      title,
-      content,
-      complete,
-    };
-    setTodos([...todos, newTodo]);
-    onReset()
-    focusRef.current.focus()
-  }
+      const newTodo = {
+        id: todos.length + 1,
+        title,
+        content,
+        complete,
+      };
+      setTodos([...todos, newTodo]);
+      onReset();
+      focusRef.current.focus();
+    }
   };
 
   // input 초기화 함수
   const onReset = () => {
-    setTitle('')
-    setContent('')
-  }
+    setTitle("");
+    setContent("");
+  };
 
   // 완료 목록으로 옮기는 함수. id일치하는 항목 찾아서 complete를 true로 변경
   const clickGotoDoneButtonHandler = (id) => {
@@ -70,51 +70,53 @@ function App() {
 
   //행복하기 버튼
   const clickRemoveAllButtonHandler = () => {
-    let answer = confirm("정말 모든 리스트를 지울건가요?")
+    let answer = confirm("정말 모든 리스트를 지울건가요?");
     if (answer === true) {
-      let answer2 = confirm("다시 한번 물어볼게요. 진짜 다 지워요??")
+      let answer2 = confirm("다시 한번 물어볼게요. 진짜 다 지워요??");
       if (answer2 === true) {
-        setTodos([])
+        setTodos([]);
       }
     }
   };
 
   // 엔터 누르면 추가하기
-  const enterContent = (event) => {
-    if (event.key === 'Enter') {
+  const enterInput = (event) => {
+    if (event.key === "Enter") {
       clickAddButtonHandler();
     }
-  }
-  
+  };
+
   // 인풋창 focus하면 placeholder 사라짐
   const focusPlaceHolderRemover = (event) => {
-    event.target.placeholder = ""
-  }
+    event.target.placeholder = "";
+  };
   // 인풋창에서 손 떼면 placeholder 생김.
   const blurTitlePlaceHolder = (event) => {
-    event.target.placeholder = "뭐지? 일인가?"
-  }
+    event.target.placeholder = "뭐지? 일인가?";
+  };
   // Q. 근데 이거 묶어서 하는 방법 없나???
   const blurContentPlaceHolder = (event) => {
-    event.target.placeholder = "뭐지? 무슨 일이지?"
-  }
-
+    event.target.placeholder = "뭐지? 무슨 일이지?";
+  };
 
   return (
     <div className="layout">
       <nav>
         <span>일해라 동준아</span>
-        <button className="clear-all-btn" onClick={clickRemoveAllButtonHandler}>💣행복버튼🚫</button>
+        <button className="clear-all-btn" onClick={clickRemoveAllButtonHandler}>
+          💣행복버튼🚫
+        </button>
       </nav>
       <header>
-        제목<input placeholder="뭐지? 일인가?" onFocus={focusPlaceHolderRemover} onBlur={blurTitlePlaceHolder} className="search-ipt" value={title} onChange={titleChangeHandler} ref={focusRef} />
-        내용<input placeholder="뭐지? 무슨 일이지?" onFocus={focusPlaceHolderRemover} onBlur={blurContentPlaceHolder} className="search-ipt" value={content} onChange={contentChangeHandler} onKeyUp={enterContent} />
+        제목
+        <input placeholder="뭐지? 일인가?" onFocus={focusPlaceHolderRemover} onBlur={blurTitlePlaceHolder} className="search-ipt" value={title} onChange={titleChangeHandler} onKeyUp={enterInput} ref={focusRef} />
+        내용
+        <input placeholder="뭐지? 무슨 일이지?" onFocus={focusPlaceHolderRemover} onBlur={blurContentPlaceHolder} className="search-ipt" value={content} onChange={contentChangeHandler} onKeyUp={enterInput} />
         <button onClick={clickAddButtonHandler}>추가하기</button>
-        
       </header>
       <main>
         {/*===================================Working에 대한 부분(complete=false이면 여기로)========================================*/}
-        <h1>☠️  해치우자!  ☠️</h1>
+        <h1>☠️ 해치우자! ☠️</h1>
         <div className="working-list-container">
           {todos
             .filter((item) => item.complete === false)
@@ -133,7 +135,7 @@ function App() {
         </div>
 
         {/*===================================Done에 대한 부분(complete=true이면 여기로)========================================*/}
-        <h1>💀  해치웠나?  💀</h1>
+        <h1>💀 해치웠나? 💀</h1>
         <div className="done-list-container">
           {todos
             .filter((item) => item.complete === true)
