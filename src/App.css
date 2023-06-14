@@ -1,38 +1,127 @@
-.App {
-  text-align: center;
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+:root {
+  --primary-color: #ffd60a;
+  --primary-sub-color: #003566;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  outline: none;
+  box-sizing: border-box;
+  color: var(--primary-sub-color);
+  font-family: 'Gowun Dodum', sans-serif;
+  font-weight: 600;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.layout {
+  margin: 0 auto;
+  min-width: 800px;
+  max-width: 1200px;
+  height: 100%;
+  display: block;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+nav {
+  border: 1px solid var(--primary-color);
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color);
+  gap: 30px;
+  padding: 30px;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+button {
+  background-color: white;
+  border: 2px solid var(--primary-sub-color);
+  padding: 10px 30px;
+  border-radius: 10px;
+  width: 50%;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.search-ipt {
+  height: 50px;
+  width: 300px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  padding: 0px 10px;
+  font-size: 16px;
+}
+
+header > button {
+  width: 150px;
+  border: none;
+  color: var(--primary-sub-color);
+  font-size: 16px;
+  font-weight: bolder;
+}
+
+.clear-all-btn {
+  display:flex;
+  justify-content: center;
+  width: 150px;
+  padding:10px;
+}
+
+.clear-all-btn:hover {
+  background-color:#990011;
+  border-color: #990011;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.working-list-container {
+  display: grid;
+  grid-template-columns: repeat(3, 4fr);
+  justify-content: center;
+  gap: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.done-list-container {
+  display: grid;
+  grid-template-columns: repeat(3, 4fr);
+  justify-content: center;
+  gap: 20px;
+}
+
+.check-border {
+  display: block;
+  position: relative;
+  border: 4px solid var(--primary-sub-color);
+  border-radius: 12px;
+  padding: 12px 30px 24px;
+  min-height: 250px;
+}
+
+.btn-container {
+  position: relative;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.btn-container > button:hover{
+  background-color: var(--primary-sub-color);
+  color: whitesmoke;
+  font-size:18px;
+  font-weight:bolder;
+  transition-duration: 0.2s;
 }
