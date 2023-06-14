@@ -5,7 +5,8 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [complete, setComplete] = useState(false);
+  // const [complete, setComplete] = useState(false); 굳이 얘로 쓸 필요가 없다. 왜냐? complete은 re-rendering에 쓰이지 않고 있기 때문이다.
+  const complete = false  // 따라서 complete은 그냥 변수(상수)로 지정해줘도 문제가 없다. 나중에 setComplete 자체만드로 re-rendering이 될 때 state를 쓰면 된다.
   const focusRef = useRef() // submit한 뒤 커서를 제목에 옮기기 위한 수단인데 잘 모르겠음. 참고사이트 https://eundol1113.tistory.com/595
 
   // 제목 input창의 value를 title 훅에 넣기
