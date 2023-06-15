@@ -1,12 +1,14 @@
 import React, { useRef, useState } from "react";
 import "./App.css";
+import TodoRender from "./components/TodoRender";
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  // const [complete, setComplete] = useState(false); 굳이 얘로 쓸 필요가 없다. 왜냐? complete은 re-rendering에 쓰이지 않고 있기 때문이다. 130번째에서 필터 걸어서 가져가는 todo의 complete이랑 이 8번째 줄의 complete이랑은 다른 애임.
-  const complete = false; // 따라서 complete은 그냥 변수(상수)로 지정해줘도 문제가 없다. 나중에 setComplete 자체만드로 re-rendering이 될 때 state를 쓰면 된다.
+  // const [complete, setComplete] = useState(!true); 굳이 얘로 쓸 필요가 없다. 왜냐? complete은 re-rendering에 쓰이지 않고 있기 때문이다. 124번줄에서 필터 걸어서 가져가는 todo의 complete이랑 이 8번째 줄의 complete이랑은 다른 애임.
+  const complete = !true; // 따라서 complete은 그냥 변수(상수)로 지정해줘도 문제가 없다. 나중에 setComplete 자체만드로 re-rendering이 될 때 state를 쓰면 된다.
+  const btnText = "완료"
   // useRef : JS의 querySelector같은 기능. 이벤트가 발생한 아이(DOM??)을 지정한다. useRef자체는 렌더링하지 않고, state가 변화할 때 축적된 변경도 렌더링된다.
   const focusRef = useRef(); // useRef ::  submit한 뒤 커서를 제목에 옮기기 위한 수단인데 잘 모르겠음. 참고사이트 https://eundol1113.tistory.com/595
 
@@ -20,7 +22,7 @@ function App() {
     setContent(event.target.value);
   };
 
-  // id: todos의 요소개수+1 / title&content: 위 두 handler로 넣은 값 / complete : 기본값 false
+  // id: todos의 요소개수+1 / title&content: 위 두 handler로 넣은 값 / complete : 기본값 !true / btnText : 완료/취소버튼 텍스트
   const clickAddButtonHandler = () => {
     if (title.trim() === "") {
       alert("제목은 입력하셔요.(스페이스만 쳐도 안됨)");
@@ -30,6 +32,7 @@ function App() {
         title,
         content,
         complete,
+        btnText,
       };
       setTodos([...todos, newTodo]);
       onReset();
@@ -47,10 +50,12 @@ function App() {
   const clickCheckCompleteButtonHandler = (id) => {
     todos.forEach((todo) => {
       if (todo.id === id) {
-        if (todo.complete === false) {
+        if (todo.complete === !true) {
           todo.complete = true;
+          todo.btnText = "취소"
         } else if (todo.complete === true) {
-          todo.complete = false;
+          todo.complete = !true;
+          todo.btnText = "완료"
         } else {
           alert("에러 : 완료여부 코드 이상");
         }
@@ -59,13 +64,13 @@ function App() {
     });
   };
 
-  //삭제하기 버튼
+  // 삭제하기 버튼
   const clickRemoveButtonHandler = (id) => {
     const newTodos = todos.filter((item) => item.id !== id);
     setTodos(newTodos);
   };
 
-  //행복하기 버튼
+  // 행복하기 버튼
   const clickRemoveAllButtonHandler = () => {
     let answer = confirm("정말 모든 리스트를 지울건가요?");
     if (answer === true) {
@@ -112,14 +117,13 @@ function App() {
         <button onClick={clickAddButtonHandler}>추가하기</button>
       </header>
       <main>
-        {/*===================================Working에 대한 부분(complete=false이면 여기로)========================================*/}
+        {/*===================================Working에 대한 부분(complete=!true이면 여기로)========================================*/}
         <h1>☠️ 해치우자! ☠️</h1>
         <div className="working-list-container">
           {todos
-            .filter((item) => item.complete === false)
-            .map(function (item) {
-              
-              return <CompleteFalse 
+            .filter((item) => item.complete === !true)
+            .map(function (item) {         
+              return <TodoRender 
                         key = {item.id} 
                         item = {item} 
                         clickRemoveButtonHandler = {clickRemoveButtonHandler} 
@@ -134,7 +138,7 @@ function App() {
           {todos
             .filter((item) => item.complete === true)
             .map(function (item) {
-              return <CompleteTrue 
+              return <TodoRender 
                         key = {item.id} 
                         item = {item} 
                         clickRemoveButtonHandler = {clickRemoveButtonHandler} 
@@ -146,31 +150,5 @@ function App() {
     </div>
   );
 }
-
-const CompleteFalse = ({ item, clickRemoveButtonHandler, clickCheckCompleteButtonHandler }) => {
-  return (
-    <div className="check-border" key={item.id}>
-      <h2>{item.title}</h2>
-      <p>{item.content}</p>
-      <div className="btn-container">
-        <button onClick={() => clickRemoveButtonHandler(item.id)}>삭제하기</button>
-        <button onClick={() => clickCheckCompleteButtonHandler(item.id)}>완료</button>
-      </div>
-    </div>
-  );
-};
-
-const CompleteTrue = ({ item, clickRemoveButtonHandler, clickCheckCompleteButtonHandler }) => {
-  return (
-    <div className="check-border" key={item.id}>
-      <h2>{item.title}</h2>
-      <div>{item.content}</div>
-      <div className="btn-container">
-        <button onClick={() => clickRemoveButtonHandler(item.id)}>삭제하기</button>
-        <button onClick={() => clickCheckCompleteButtonHandler(item.id)}>취소</button>
-      </div>
-    </div>
-  );
-};
 
 export default App;
