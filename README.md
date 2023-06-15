@@ -1,6 +1,9 @@
 # todolist-react
+
 스파르타코딩클럽 리액트 개인과제(todo list)
+
 <h2>분리한 컴포넌트<h2>
+  
 ```javascript
 const TodoRender = ({ item, clickRemoveButtonHandler, clickCheckCompleteButtonHandler }) => {
   return (
@@ -16,4 +19,3 @@ const TodoRender = ({ item, clickRemoveButtonHandler, clickCheckCompleteButtonHa
 };
 
 export default TodoRender
-```
