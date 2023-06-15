@@ -9,8 +9,8 @@ function App() {
   // const [complete, setComplete] = useState(!true); 굳이 얘로 쓸 필요가 없다. 왜냐? complete은 re-rendering에 쓰이지 않고 있기 때문이다. 124번줄에서 필터 걸어서 가져가는 todo의 complete이랑 이 8번째 줄의 complete이랑은 다른 애임.
   const complete = !true; // 따라서 complete은 그냥 변수(상수)로 지정해줘도 문제가 없다. 나중에 setComplete 자체만드로 re-rendering이 될 때 state를 쓰면 된다.
   const btnText = "완료"
-  // useRef : JS의 querySelector같은 기능. 이벤트가 발생한 아이(DOM??)을 지정한다. useRef자체는 렌더링하지 않고, state가 변화할 때 축적된 변경도 렌더링된다.
-  const focusRef = useRef(); // useRef ::  submit한 뒤 커서를 제목에 옮기기 위한 수단인데 잘 모르겠음. 참고사이트 https://eundol1113.tistory.com/595
+  // todo 입력 후 커서를 title input창에 위치. useRef : JS의 querySelector같은 기능. 이벤트가 발생한 아이(DOM??)을 지정한다. useRef자체는 렌더링하지 않고, state가 변화할 때 축적된 변경도 렌더링된다. 참고: https://eundol1113.tistory.com/595
+  const focusRef = useRef();  
 
   // 제목 input창의 value를 title 훅에 넣기
   const titleChangeHandler = (event) => {
@@ -70,7 +70,7 @@ function App() {
     setTodos(newTodos);
   };
 
-  // 행복하기 버튼
+  // 행복하기 버튼(todo 모두 삭제)
   const clickRemoveAllButtonHandler = () => {
     let answer = confirm("정말 모든 리스트를 지울건가요?");
     if (answer === true) {
