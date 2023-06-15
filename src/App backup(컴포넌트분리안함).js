@@ -44,16 +44,20 @@ function App() {
   };
 
   // 완료 목록으로 옮기는 함수. id일치하는 항목 찾아서 complete를 true로 변경
-  const clickCheckCompleteButtonHandler = (id) => {
+  const clickGotoDoneButtonHandler = (id) => {
     todos.forEach((todo) => {
       if (todo.id === id) {
-        if (todo.complete === false) {
-          todo.complete = true;
-        } else if (todo.complete === true) {
-          todo.complete = false;
-        } else {
-          alert("에러 : 완료여부 코드 이상");
-        }
+        todo.complete = true;
+      } 
+      setTodos([...todos]);
+    });
+  };
+
+  // 진행 목록으로 옮기는 함수. id일치하는 항목 찾아서 complete를 false로 변경
+  const clickGotoWorkingButtonHandler = (id) => {
+    todos.forEach((todo) => {
+      if (todo.id === id) {
+        todo.complete = false;
       }
       setTodos([...todos]);
     });
@@ -118,13 +122,16 @@ function App() {
           {todos
             .filter((item) => item.complete === false)
             .map(function (item) {
-              
-              return <CompleteFalse 
-                        key = {item.id} 
-                        item = {item} 
-                        clickRemoveButtonHandler = {clickRemoveButtonHandler} 
-                        clickCheckCompleteButtonHandler = {clickCheckCompleteButtonHandler} 
-                      />;
+              return (
+                <div className="check-border" key={item.id}>
+                  <h2>{item.title}</h2>
+                  <p>{item.content}</p>
+                  <div className="btn-container">
+                    <button onClick={() => clickRemoveButtonHandler(item.id)}>삭제하기</button>
+                    <button onClick={() => clickGotoDoneButtonHandler(item.id)}>완료</button>
+                  </div>
+                </div>
+              );
             })}
         </div>
 
@@ -134,43 +141,21 @@ function App() {
           {todos
             .filter((item) => item.complete === true)
             .map(function (item) {
-              return <CompleteTrue 
-                        key = {item.id} 
-                        item = {item} 
-                        clickRemoveButtonHandler = {clickRemoveButtonHandler} 
-                        clickCheckCompleteButtonHandler = {clickCheckCompleteButtonHandler} 
-                    />;
+              return (
+                <div className="check-border" key={item.id}>
+                  <h2>{item.title}</h2>
+                  <div>{item.content}</div>
+                  <div className="btn-container">
+                    <button onClick={() => clickRemoveButtonHandler(item.id)}>삭제하기</button>
+                    <button onClick={() => clickGotoWorkingButtonHandler(item.id)}>취소</button>
+                  </div>
+                </div>
+              );
             })}
         </div>
       </main>
     </div>
   );
 }
-
-const CompleteFalse = ({ item, clickRemoveButtonHandler, clickCheckCompleteButtonHandler }) => {
-  return (
-    <div className="check-border" key={item.id}>
-      <h2>{item.title}</h2>
-      <p>{item.content}</p>
-      <div className="btn-container">
-        <button onClick={() => clickRemoveButtonHandler(item.id)}>삭제하기</button>
-        <button onClick={() => clickCheckCompleteButtonHandler(item.id)}>완료</button>
-      </div>
-    </div>
-  );
-};
-
-const CompleteTrue = ({ item, clickRemoveButtonHandler, clickCheckCompleteButtonHandler }) => {
-  return (
-    <div className="check-border" key={item.id}>
-      <h2>{item.title}</h2>
-      <div>{item.content}</div>
-      <div className="btn-container">
-        <button onClick={() => clickRemoveButtonHandler(item.id)}>삭제하기</button>
-        <button onClick={() => clickCheckCompleteButtonHandler(item.id)}>취소</button>
-      </div>
-    </div>
-  );
-};
 
 export default App;
