@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap");
 
 :root {
   --primary-color: #ffd60a;
@@ -10,7 +10,7 @@
 * {
   outline: none;
   box-sizing: border-box;
-  font-family: 'Gowun Dodum', sans-serif;
+  font-family: "Gowun Dodum", sans-serif;
   font-weight: 600;
   transition-duration: 0.2s;
 }
@@ -39,13 +39,15 @@
 }
 
 .dark .layout {
-  color : var(--primary-dark-color)f;
+  color: var(--primary-dark-color) f;
 }
+
 .dark nav {
   background-color: #444;
   border-color: transparent;
 }
-.dark header {
+
+.dark form {
   background-color: #665604;
 }
 
@@ -53,11 +55,12 @@
   background-color: #555;
   color: var(--primary-dark-color);
 }
+
 .dark .search-ipt::placeholder {
   color: var(--primary-dark-color);
 }
 
-.dark header > button {
+.dark form > button {
   color: var(--primary-dark-color);
   background-color: #555;
 }
@@ -69,23 +72,23 @@
 }
 
 .dark .clear-all-btn:hover {
-  background-color:#1e0004;
+  background-color: #1e0004;
   border-color: #1e0004;
   color: white;
   transition-duration: 0.2s;
 }
 .dark .check-border {
-  background-color:#444;
+  background-color: #444;
   border-color: #444;
 }
 
 .dark .check-border:hover {
   transform: scale(1.05);
   transition-duration: 0.2s;
-  box-shadow: 0px 30px 20px rgba(0,0,0,0.3);
+  box-shadow: 0px 30px 20px rgba(0, 0, 0, 0.3);
 }
 
-.dark .btn-container > button:hover{
+.dark .btn-container > button:hover {
   border-color: #7777;
   background-color: #777;
 }
@@ -108,7 +111,7 @@ nav {
   align-items: center;
 }
 
-header {
+form {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -127,7 +130,7 @@ button {
   width: 50%;
   font-size: 15px;
   cursor: pointer;
-  color: var(--primary-sub-color)
+  color: var(--primary-sub-color);
 }
 
 .search-ipt {
@@ -140,7 +143,7 @@ button {
   font-size: 16px;
 }
 
-header > button {
+form > button {
   width: 150px;
   border: none;
   font-size: 16px;
@@ -149,14 +152,14 @@ header > button {
 }
 
 .clear-all-btn {
-  display:flex;
+  display: flex;
   justify-content: center;
   width: 150px;
-  padding:10px;
+  padding: 10px;
 }
 
 .clear-all-btn:hover {
-  background-color:#990011;
+  background-color: #990011;
   border-color: #990011;
   color: white;
 }
@@ -196,10 +199,10 @@ header > button {
   margin-top: 20px;
 }
 
-.btn-container > button:hover{
+.btn-container > button:hover {
   background-color: var(--primary-sub-color);
   color: whitesmoke;
-  font-size:18px;
-  font-weight:bolder;
+  font-size: 18px;
+  font-weight: bolder;
   transition-duration: 0.2s;
 }
