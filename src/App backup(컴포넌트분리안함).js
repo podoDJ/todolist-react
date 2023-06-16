@@ -158,7 +158,4 @@ function App() {
     </div>
   );
 }
-const test = () => {
-
-}
 export default App;

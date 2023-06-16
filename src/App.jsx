@@ -1,9 +1,12 @@
 import React, { useRef, useState } from "react";
 import "./App.css";
+// 진솔님한테 nanoid 배움. 먼저 bash에 yarn add nanoid 명령어로 설치해야 함.
+import { nanoid } from 'nanoid'
 import TodoRender from "./components/TodoRender";
 
 function App() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(() => JSON.parse(window.localStorage.getItem("todos")) || []);
+    window.localStorage.setItem("todos", JSON.stringify(todos));;
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   // const [complete, setComplete] = useState(!true); 굳이 얘로 쓸 필요가 없다. 왜냐? complete은 re-rendering에 쓰이지 않고 있기 때문이다. 124번줄에서 필터 걸어서 가져가는 todo의 complete이랑 이 8번째 줄의 complete이랑은 다른 애임.
@@ -28,12 +31,12 @@ function App() {
       alert("제목은 입력하셔요.(스페이스만 쳐도 안됨)");
     } else {
       const newTodo = {
-        id: todos.length + 1,
+        id: nanoid(),
         title,
         content,
         complete,
         btnText,
-      };
+      };      
       setTodos([...todos, newTodo]);
       onReset();
       focusRef.current.focus();
@@ -49,7 +52,7 @@ function App() {
   // 완료 목록으로 옮기는 함수. id일치하는 항목 찾아서 complete를 true로 변경
   const clickCheckCompleteButtonHandler = (id) => {
     todos.forEach((todo) => {
-      if (todo.id === id) {
+      if (todo.id === id) { 
         if (todo.complete === !true) {
           todo.complete = true;
           todo.btnText = "취소"
