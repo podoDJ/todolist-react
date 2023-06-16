@@ -12,6 +12,7 @@
   box-sizing: border-box;
   font-family: 'Gowun Dodum', sans-serif;
   font-weight: 600;
+  transition-duration: 0.2s;
 }
 
 .screen {
@@ -26,6 +27,9 @@
   z-index: 100;
   transform: scale(2);
   cursor: pointer;
+}
+.dark-mode-btn:hover {
+  transform: scale(2.5);
 }
 
 /*다크모드 style*/
@@ -46,7 +50,7 @@
 }
 
 .dark .search-ipt {
-  background-color: #444;
+  background-color: #555;
   color: var(--primary-dark-color);
 }
 .dark .search-ipt::placeholder {
@@ -55,7 +59,7 @@
 
 .dark header > button {
   color: var(--primary-dark-color);
-  background-color: #444;
+  background-color: #555;
 }
 
 .dark button {
