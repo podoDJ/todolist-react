@@ -4,14 +4,86 @@
 :root {
   --primary-color: #ffd60a;
   --primary-sub-color: #003566;
+  --primary-dark-color: white;
 }
 
 * {
   outline: none;
   box-sizing: border-box;
-  color: var(--primary-sub-color);
   font-family: 'Gowun Dodum', sans-serif;
   font-weight: 600;
+}
+
+.screen {
+  background-color: white;
+  min-height: 200vh;
+}
+
+.dark-mode-btn {
+  position: fixed;
+  top: 30px;
+  right: 35px;
+  z-index: 100;
+  transform: scale(2);
+  cursor: pointer;
+}
+
+/*다크모드 style*/
+.dark {
+  background-color: #333;
+  color: var(--primary-dark-color);
+}
+
+.dark .layout {
+  color : var(--primary-dark-color)f;
+}
+.dark nav {
+  background-color: #444;
+  border-color: transparent;
+}
+.dark header {
+  background-color: #665604;
+}
+
+.dark .search-ipt {
+  background-color: #444;
+  color: var(--primary-dark-color);
+}
+.dark .search-ipt::placeholder {
+  color: var(--primary-dark-color);
+}
+
+.dark header > button {
+  color: var(--primary-dark-color);
+  background-color: #444;
+}
+
+.dark button {
+  background-color: #666;
+  border-color: #666;
+  color: var(--primary-dark-color);
+}
+
+.dark .clear-all-btn:hover {
+  background-color:#1e0004;
+  border-color: #1e0004;
+  color: white;
+  transition-duration: 0.2s;
+}
+.dark .check-border {
+  background-color:#444;
+  border-color: #444;
+}
+
+.dark .check-border:hover {
+  transform: scale(1.05);
+  transition-duration: 0.2s;
+  box-shadow: 0px 30px 20px rgba(0,0,0,0.3);
+}
+
+.dark .btn-container > button:hover{
+  border-color: #7777;
+  background-color: #777;
 }
 
 .layout {
@@ -21,6 +93,7 @@
   height: 100%;
   display: block;
   justify-content: center;
+  color: var(--primary-sub-color);
 }
 
 nav {
@@ -43,13 +116,14 @@ header {
 }
 
 button {
-  background-color: white;
+  background-color: transparent;
   border: 2px solid var(--primary-sub-color);
   padding: 10px 30px;
   border-radius: 10px;
   width: 50%;
   font-size: 15px;
   cursor: pointer;
+  color: var(--primary-sub-color)
 }
 
 .search-ipt {
@@ -65,9 +139,9 @@ button {
 header > button {
   width: 150px;
   border: none;
-  color: var(--primary-sub-color);
   font-size: 16px;
   font-weight: bolder;
+  background-color: white;
 }
 
 .clear-all-btn {
