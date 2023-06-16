@@ -7,12 +7,13 @@ function App() {
   const [todos, setTodos] = useState(() => JSON.parse(window.localStorage.getItem("todos")) || []);
   window.localStorage.setItem("todos", JSON.stringify(todos));
 
-  // 다크모드 생성 state. preMode는 바로 직전에 저장된 상태를 불러옴.
+  // 다크모드 생성 state. prevMode는 isDarkMode값을 가져오는 매개변수
   const [isDarkMode, setIsDarkMode] = useState(false);
   const toggleDarkMode = () => {
+    console.log(isDarkMode)
     setIsDarkMode((prevMode) => !prevMode);
   };
-
+  
   // 행복하기 버튼(todo 모두 삭제)
   const clickRemoveAllButtonHandler = () => {
     let answer = confirm("정말 모든 리스트를 지울건가요?");
